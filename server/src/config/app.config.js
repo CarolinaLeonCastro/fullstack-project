@@ -1,5 +1,5 @@
-import dotenv from 'dotenv';
-import express from 'express';
+const dotenv = require('dotenv');
+const express = require('express');
 
 const app = express();
 
@@ -7,7 +7,9 @@ const app = express();
 dotenv.config();
 
 // On exporte un objet contenant la config
-export const config = {
-    port: process.env.PORT || 8000,
+module.exports = {
+    config: {
+        port: process.env.PORT || 8000,
+    },
 };
 

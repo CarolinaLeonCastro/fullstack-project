@@ -7,4 +7,4 @@ const contacts = {
   "address": "123 rue Example, 75000 Paris"
 };
 
-module.exports = contacts;
+export default contacts;

@@ -1,15 +1,15 @@
-const dotenv = require('dotenv');
-const express = require('express');
+import dotenv from 'dotenv';
+dotenv.config();
+import express from 'express';
+import mongoose from 'mongoose';
 
 const app = express();
+const URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@fullstack-project.sjclu3b.mongodb.net/?retryWrites=true&w=majority&appName=fullstack-project`;
 
-// Charge les variables du fichier .env
-dotenv.config();
+mongoose.connect(URI)
+    .then(() => console.log('Connexion à MongoDB réussie !'))
+    .catch(err => console.log(err));
 
-// On exporte un objet contenant la config
-module.exports = {
-    config: {
-        port: process.env.PORT || 8000,
-    },
+export const config = {
+    port: process.env.PORT || 8000,
 };
-

@@ -3,13 +3,36 @@ dotenv.config();
 import express from 'express';
 import mongoose from 'mongoose';
 
-const app = express();
-const URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@fullstack-project.sjclu3b.mongodb.net/?retryWrites=true&w=majority&appName=fullstack-project`;
+import authRouter from '../api/auth/auth.route.js'; 
+import { contactRouter } from '../resources/contact/contact.routes.js';
+import { logger } from '../api/logger.middleware.js';
 
-mongoose.connect(URI)
-    .then(() => console.log('Connexion à MongoDB réussie !'))
-    .catch(err => console.log(err));
+
+
+
+const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(logger);
+
+app.use ('/api/auth', authRouter); // Authentication routes
+
+
+
+app.use('/api/contacts', contactRouter);
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: 'Internal Server Error' });
+});
+
+
 
 export const config = {
     port: process.env.PORT || 8000,
 };
+
+export default app;
+

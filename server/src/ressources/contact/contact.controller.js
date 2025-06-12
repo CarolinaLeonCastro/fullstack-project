@@ -11,7 +11,7 @@ export const createContact = async (req, res, next) => {
   }
 };
 
-export const getContacts = async (req, res, next) => {
+export const getAllContacts = async (req, res, next) => {
   try {
     const { page = 1, limit = 10, search = '' } = req.query;
 

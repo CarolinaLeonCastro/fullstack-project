@@ -1,30 +1,30 @@
-import { Router } from 'express';
-import { createContact, getContacts, getContactById, updateContact, deleteContact } from './contact.controller.js';
-import upload from '../../config/multer.config.js';
-import { authenticate } from '../../auth/auth.middleware.js';
 
-const router = Router();
+import express from 'express';
+import { protect } from '../../api/auth/auth.middleware.js';   // <-- chemin corrigé
 
-router
+
+import upload         from '../../config/multer.js';           // ou multer.config.js
+import {
+  getAllContacts,
+  getContactById,
+  createContact,
+  updateContact,
+  deleteContact
+} from './contact.controller.js';
+
+const contactRouter = express.Router();
+
+contactRouter.use(protect);
+
+contactRouter
   .route('/')
-    .post(
-      authenticate,
-      upload.single('avatar'),
-      createContact
-    )
-    .get(getContacts);
+  .get(getAllContacts)
+  .post(upload.single('avatar'), createContact);
 
-router
+contactRouter
   .route('/:id')
-    .get(getContactById)
-    .put(
-      authenticate,
-      upload.single('avatar'),
-      updateContact
-    )
-    .delete(
-      authenticate,
-      deleteContact
-    );
+  .get(getContactById)
+  .patch(upload.single('avatar'), updateContact)
+  .delete(deleteContact);
 
-export { router as contactRouter };
+export { contactRouter };

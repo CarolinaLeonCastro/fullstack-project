@@ -1,8 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-
-import { USER_ROLES } from "../../resources/user/user.model";
-import  User  from "../../resources/user/user.model.js";
+// APRÈS — avec .js
+import { USER_ROLES, User } from '../../ressources/user/user.model.js';
 
 
 export const register = async (req, res, next) => {

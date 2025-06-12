@@ -4,7 +4,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 
 import authRouter from '../api/auth/auth.route.js'; 
-import { contactRouter } from '../resources/contact/contact.routes.js';
+import { contactRouter } from '../ressources/contact/contact.route.js';
 import { logger } from '../api/logger.middleware.js';
 
 

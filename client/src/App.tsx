@@ -1,15 +1,27 @@
 // src/App.tsx
-import { Layout } from './ui/layout/Layout';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { Routes, Route, Navigate } from 'react-router';
 
-const theme = createTheme({ cssVariables: true });
+import AllCards from './pages/AllCards';
+import SignInPage from './pages/Login';
+
 
 export function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <Layout>
-        <h1>Contacts app</h1>
-      </Layout>
-    </ThemeProvider>
+
+            <Routes>
+                <Route path="/" element={<SignInPage />} />
+                <Route path="/register" element={<AllCards />} />
+                <Route 
+                    path="/dashboard" 
+                    element={
+                       
+                            <AllCards />
+                      
+                    } 
+                />
+                <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>   
+      
   );
 }
+ 
